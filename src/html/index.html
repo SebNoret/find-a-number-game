@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./app.css" />
+    <title>Jeu du devine le nombre</title>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <h1>Devinez le nombre secret</h1>
+
+      <div class="box-wrapper">
+        <div class="content-wrapper">
+          <h3 class="regle italic">
+            La règle du jeu est simple: il faut découvrir le nombre caché avec
+            le moins d'essais possibles.
+          </h3>
+        </div>
+
+        <div class="content-wrapper" id="choix_nbr_essais">
+          <h3 class="italic">Choisissez votre nombre d'essais</h3>
+          <form id="formulaire">
+            <div class="form-control">
+              <input
+                type="radio"
+                name="choix"
+                value="6"
+                id="radio_1"
+                class="radio-btn selected"
+                checked
+              /><label for="radio_1">6</label>
+              <input
+                type="radio"
+                name="choix"
+                value="7"
+                id="radio_2"
+                class="radio-btn selected"
+              /><label for="radio_2">7</label>
+              <input
+                type="radio"
+                name="choix"
+                value="8"
+                id="radio_3"
+                class="radio-btn selected"
+              /><label for="radio_3">8</label>
+              <input
+                type="radio"
+                name="choix"
+                value="9"
+                id="radio_4"
+                class="radio-btn selected"
+              /><label for="radio_4">9</label>
+              <input
+                type="radio"
+                name="choix"
+                value="10"
+                id="radio_5"
+                class="radio-btn selected"
+              /><label for="radio_5">10</label>
+              <input
+                type="radio"
+                name="choix"
+                value="11"
+                id="radio_6"
+                class="radio-btn selected"
+              /><label for="radio_6">11</label>
+              <input
+                type="radio"
+                name="choix"
+                value="12"
+                id="radio_7"
+                class="radio-btn selected"
+              /><label for="radio_7">12</label>
+            </div>
+            <div class="form-control">
+              <input
+                type="submit"
+                name="nombre d'essais"
+                class="btn"
+                value="Valider"
+                id="nb_essais"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div class="content-wrapper" id="nbr_choisi">
+          <h3 class="italic">
+            Choisissez un nombre entre un nombre entre 1 et 100.
+          </h3>
+          <div class="reponse">
+            <form>
+              <div class="form-control">
+                <input
+                  class="input"
+                  type="text"
+                  name="nom"
+                  size="50"
+                  id="reponse"
+                  required
+                /><br />
+              </div>
+              <div class="form-control">
+                <input
+                  type="submit"
+                  class="btn"
+                  id="valider_btn"
+                  value="Essayer"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="content-wrapper" id="conteneur_reponse">
+          <h3 id="aide">A vous de jouer !</h3>
+          <h3 id="message_essais"></h3>
+          <div class="response-control">
+            <button class="btn" id="rejouer">Rejouer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>
+        credit Image by
+        <a
+          href="https://pixabay.com/users/arlekim-5029982/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2462922"
+          >Arlekim</a
+        >
+        from
+        <a
+          href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2462922"
+          >Pixabay</a
+        >
+      </p>
+    </footer>
+    <script src="app.js" type="application/javascript"></script>
+  </body>
+</html>
