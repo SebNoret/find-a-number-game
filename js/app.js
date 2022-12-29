@@ -1,24 +1,6 @@
+import Model from "./Model";
 import View from "./View";
 
-class Model {
-  constructor(initialState) {
-    this.listeners = [];
-    this.state = { ...initialState };
-  }
-
-  refresh(newState) {
-    this.state = { ...newState };
-  }
-  setState(obj) {
-    this.state = { ...this.state, ...obj };
-  }
-  getState() {
-    return this.state;
-  }
-  getValue(key) {
-    return this.state[key];
-  }
-}
 class App {
   constructor() {
     this.root = document.getElementById("root");
@@ -26,26 +8,20 @@ class App {
     this.model = new Model(this.init());
     this.view = new View(this.root, this.model);
 
-    this.resultat = false;
-
     this.selectedNumberOfAttemps = this.selectedNumberOfAttemps.bind(this);
+    this.selectedNumberOfAttemps = this.selectedNumberOfAttemps.bind(this);
+    this.testUserResponse = this.testUserResponse.bind(this);
+    this.init = this.init.bind(this);
 
     this.view.handleRadioChange(this.selectedNumberOfAttemps);
-
-    this.view.handleNumberOfChoiceSubmit();
-
-    this.testUserResponse = this.testUserResponse.bind(this);
-
+    this.view.handleNumberOfChoiceSubmit(this.selectedNumberOfAttemps);
     this.view.handleResponseSubmit(this.testUserResponse);
-
-    this.init = this.init.bind(this);
     this.view.handleNewGame(this.init);
-    this.selectedNumberOfAttemps();
   }
   init() {
     const initialState = {
       message: "A vous de jouer!",
-      remainingTries: 0,
+      remainingAttempts: 0,
       solution: this.generateSolutionNumber(),
       gameEnded: false,
     };
@@ -54,7 +30,7 @@ class App {
     } else {
       return {
         message: "A vous de jouer!",
-        remainingTries: 0,
+        remainingAttempts: 0,
         solution: this.generateSolutionNumber(),
         gameEnded: false,
       };
@@ -64,18 +40,19 @@ class App {
     return Math.floor(Math.random() * 100) + 1;
   }
   selectedNumberOfAttemps() {
-    const remainingTries = Array.from(this.view.form.choix).filter(
+    const remainingAttempts = Array.from(this.view.form.choix).filter(
       (radio) => radio.checked
     )[0].value;
     this.model.setState({
       ...this.model.getState(),
-      message: `vous disposez de ${remainingTries} pour trouver le nombre caché`,
-      remainingTries: remainingTries,
+      message: `vous disposez de ${remainingAttempts} pour trouver le nombre caché`,
+      remainingAttempts: remainingAttempts,
     });
   }
 
   testUserResponse(userResponse) {
-    console.log("state", this.model.getState());
+    // console.log("state", this.model.getState());
+    // test if user response format is valid
     if (
       isNaN(userResponse) ||
       userResponse < 0 ||
@@ -88,37 +65,42 @@ class App {
       });
       return;
     }
-    if (this.model.getState().remainingTries === 1) {
+    // the user has arrived to is last attempt
+    if (this.model.getState().remainingAttempts === 1) {
       this.model.setState({
         ...this.model.getState,
-        remainingTries: this.model.getValue("remainingTries") - 1,
+        remainingAttempts: this.model.getValue("remainingAttempts") - 1,
         message: "Vous avez épuisé tout vos essais",
       });
-      this.checkResponse(userResponse);
+      this.compareUserResponseAndSolution(userResponse);
       return;
     }
-
+    // test if the user attempt is lower or greater than the solution
     if (userResponse > this.model.getState().solution) {
       this.model.setState({
         ...this.model.getState(),
-        remainingTries: this.model.getValue("remainingTries") - 1,
+        remainingAttempts: this.model.getValue("remainingAttempts") - 1,
         message: `Le nombre que vous avez proposé est supérieur au nombre recherché
-            Il vous reste ${this.model.getValue("remainingTries") - 1} essais`,
+            Il vous reste ${
+              this.model.getValue("remainingAttempts") - 1
+            } essais`,
       });
       return;
     } else if (userResponse < this.model.getState().solution) {
       this.model.setState({
         ...this.model.getState(),
-        remainingTries: this.model.getValue("remainingTries") - 1,
-        message:
-          "le nombre que vous avez proposé est inférieur au nombre recherché",
+        remainingAttempts: this.model.getValue("remainingAttempts") - 1,
+        message: `le nombre que vous avez proposé est inférieur au nombre recherché
+            Il vous reste ${
+              this.model.getValue("remainingAttempts") - 1
+            } essais`,
       });
       return;
     }
-    this.checkResponse(userResponse);
+    this.compareUserResponseAndSolution(userResponse);
   }
 
-  checkResponse(userResponse) {
+  compareUserResponseAndSolution(userResponse) {
     if (Number(userResponse) === this.model.getState().solution) {
       this.model.setState({
         ...this.model.getState,

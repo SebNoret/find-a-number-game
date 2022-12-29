@@ -1,7 +1,6 @@
 class View {
   constructor(documentRoot, model) {
     this.documentRoot = documentRoot;
-
     this.model = model;
 
     this.render();
@@ -20,60 +19,48 @@ class View {
   }
 
   addEventListeners() {
-    this.numTriesBtn.addEventListener("mousedown", function (e) {
-      let btn = e.target;
-      btn.classList.add("bouton-activer");
+    this.numTriesBtn.addEventListener("mousedown", function (event) {
+      event.target.classList.add("bouton-activer");
     });
 
-    this.numTriesBtn.addEventListener("mouseleave", function (e) {
-      let btn = e.target;
-      btn.classList.remove("bouton-activer");
+    this.numTriesBtn.addEventListener("mouseleave", function (event) {
+      event.target.classList.remove("bouton-activer");
     });
 
-    this.responseBtn.addEventListener("mousedown", function (e) {
-      let btn = e.target;
-      btn.classList.add("bouton-activer");
+    this.responseBtn.addEventListener("mousedown", function (event) {
+      event.target.classList.add("bouton-activer");
     });
 
-    this.responseBtn.addEventListener("mouseup", function (e) {
-      let btn = e.target;
-      btn.classList.remove("bouton-activer");
+    this.responseBtn.addEventListener("mouseup", function (event) {
+      event.target.classList.remove("bouton-activer");
     });
 
-    this.rejouer.addEventListener("mousedown", function (e) {
-      let btn = e.target;
-      btn.classList.add("bouton-activer");
+    this.rejouer.addEventListener("mousedown", function (event) {
+      event.target.classList.add("bouton-activer");
     });
 
-    this.rejouer.addEventListener("mouseup", function (e) {
-      let btn = e.target;
-      btn.classList.remove("bouton-activer");
+    this.rejouer.addEventListener("mouseup", function (event) {
+      event.target.classList.remove("bouton-activer");
     });
   }
-  displayMessage() {
-    if (this.model.state.gameEnded) {
-      this.rejouer.style.display = "block";
-      this.responseBtn.style.display = "none";
-    }
-    this.texte.innerText = this.model.state.message;
-  }
+
   handleRadioChange(callback) {
     Array.from(this.form.choix).map((radio) =>
       radio.addEventListener("change", () => callback())
     );
   }
 
-  handleNumberOfChoiceSubmit(test) {
+  handleNumberOfChoiceSubmit(callback) {
     this.numTriesBtn.addEventListener("click", (event) => {
       event.preventDefault();
-
       this.radioGroup.style.display = "none";
       this.responseWrapper.style.display = "block";
       this.reponse.style.display = "block";
-
+      callback();
       this.displayMessage();
     });
   }
+
   handleResponseSubmit(callback) {
     this.responseBtn.addEventListener("click", (event) => {
       event.preventDefault();
@@ -87,9 +74,7 @@ class View {
 
   handleNewGame(callback) {
     this.rejouer.addEventListener("click", (event) => {
-      console.log("before refresh", this.model.state);
       callback();
-      console.log("after refresh", this.model.state);
       this.radioGroup.style.display = "block";
       this.responseWrapper.style.display = "none";
       this.rejouer.style.display = "none";
@@ -98,6 +83,15 @@ class View {
       this.displayMessage();
     });
   }
+
+  displayMessage() {
+    if (this.model.state.gameEnded) {
+      this.rejouer.style.display = "block";
+      this.responseBtn.style.display = "none";
+    }
+    this.texte.innerText = this.model.state.message;
+  }
+
   render() {
     const html = ` <h1>Devinez le nombre secret</h1>
 
