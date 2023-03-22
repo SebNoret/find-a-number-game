@@ -1,6 +1,5 @@
 # find-a-number-game-V2
 
-# find-a-number-game
 <!--
 It's a little game that consists in discovering a hidden number between 1 and 100. it is written in vanilla JS and uses SCSS and GULP for design and minification. 
 -->
