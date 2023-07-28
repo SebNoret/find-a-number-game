@@ -93,7 +93,7 @@ class View {
   }
 
   render() {
-    const html = ` <h1>Devinez le nombre secret</h1>
+    const html = ` <h1>Devinez le nombre Mystère</h1>
 
       <div class="box-wrapper">
         <div class="content-wrapper">
@@ -208,8 +208,9 @@ class View {
       </div>
     </div>
     <footer>
+    
       <p>
-        credit Image by
+        Credit image de fond:
         <a
           href="https://pixabay.com/users/arlekim-5029982/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2462922"
           >Arlekim</a
