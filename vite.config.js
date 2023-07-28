@@ -6,10 +6,10 @@ import autoprefixer from "autoprefixer";
 
 const test = "http://localhost:80/dist/";
 const dev = "http://localhost:5173/";
-const prod = "https://sebnoret.github.io/portfolio/jeu/demo/";
+const prod = "https://sebnoret.github.io/portfolio/nombre-mystere/demo/";
 
 export default defineConfig({
-  base: test,
+  base: prod,
   plugins: [
     legacy({
       targets: ["defaults", "not IE 11"],
