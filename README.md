@@ -7,4 +7,4 @@ Un jeu de nombre qui consiste à découvrir un nombre généré aléatoirement e
 
 Le programme est codé en Javascript seul (sans bibliothèques) et le design est écrit avec du SCSS et du CSS.
 
-Pour les tâches de transformation du SCSS et de minification j'ai utilisé Gulp.
+Pour les tâches de transformation du SCSS et de minification j'ai utilisé Vite.
